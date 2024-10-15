@@ -15,7 +15,7 @@ class KuisPlanet extends StatefulWidget {
 }
 
 class _KuisPlanetState extends State<KuisPlanet> {
-  final List<Kuis> _question = [
+  final List<Kuis> _allQuestions = [
     Kuis(
         id: '1',
         title: 'Planet yang sudah tidak dianggap lagi di tata surya ?',
@@ -58,12 +58,69 @@ class _KuisPlanetState extends State<KuisPlanet> {
           'Bumi': false,
           'Jupiter': false
         }),
+    Kuis(
+        id: '6',
+        title: 'Planet dengan cincin paling mencolok ?',
+        options: {
+          'Neptunus': false,
+          'Saturnus': true,
+          'Uranus': false,
+          'Jupiter': false
+        }),
+    Kuis(
+        id: '7',
+        title: 'Planet yang dikenal dengan nama "planet biru" ?',
+        options: {
+          'Bumi': true,
+          'Mars': false,
+          'Venus': false,
+          'Neptunus': false
+        }),
+    Kuis(
+        id: '8',
+        title: 'Apa 2 nama bulan yang dimiliki planet Mars ?',
+        options: {
+          'Encaladus & Titan': false,
+          'Ganymede & Callisto': false,
+          'Phobos & Deimos': true,
+          'Larissa & Proteus': false
+        }),
+    Kuis(
+        id: '9',
+        title: 'Planet terdekat dengan matahari ?',
+        options: {
+          'Merkurius': true,
+          'Venus': false,
+          'Mars': false,
+          'Bumi': false
+        }),
+    Kuis(
+        id: '10',
+        title: 'Planet yang terbesar di tata surya ?',
+        options: {
+          'Saturnus': false,
+          'Jupiter': true,
+          'Bumi': false,
+          'Mars': false
+        }),
   ];
 
+  late List<Kuis> _question;
   int index = 0;
   int score = 0;
   bool isPressed = false;
   bool isAlreadyselected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _question = _getRandomQuestions();
+  }
+
+  List<Kuis> _getRandomQuestions() {
+    _allQuestions.shuffle();
+    return _allQuestions.sublist(0, 5);
+  }
 
   void nextQuest() {
     if (index == _question.length - 1) {
@@ -117,6 +174,7 @@ class _KuisPlanetState extends State<KuisPlanet> {
 
   void startOver() {
     setState(() {
+      _question = _getRandomQuestions();
       index = 0;
       score = 0;
       isPressed = false;
